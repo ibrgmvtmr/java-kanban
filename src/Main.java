@@ -1,57 +1,66 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         Manager manager = new Manager();
+        //Create Task
+        Task task1 = new Task("Task 1", "Task 1 description", "NEW");
+        int taskId1 = manager.createTask(task1);
 
-        // Создаем новую задачу
-        Task task = new Task();
-        task.setName(" Новая задача");
-        task.setDescription("Description of Task 1");
-        int taskId = manager.createTask(task);
+        //Create Epic
+        Epic epic1 = new Epic("Epic 1", "Epic 1 description", "NEW");
+        int epicId1 = manager.createEpic(epic1);
 
-        // Получаем задачу по ID
-        Task retrievedTask = manager.getTaskById(taskId);
-        System.out.println(retrievedTask.getName()); // должно напечататься "Новая задача"
+        //Create Subtask
+        Subtask subtask1 = new Subtask("Subtask 1", "Subtask 1 description","NEW", epicId1);
+        int subtaskId1 = manager.createSubtask(subtask1);
 
-        // Обновляем задачу
-        retrievedTask.setName("Измененная задача");
-        manager.updateTask(retrievedTask);
-        Task updatedTask = manager.getTaskById(taskId);
-        System.out.println(updatedTask.getName()); // должно напечататься "Измененная задача"
+        //Update Task
+        Task taskToUpdate = manager.getTaskById(taskId1);
+        taskToUpdate.setName("Task 1 - Updated");
+        manager.updateTask(taskToUpdate);
 
-        // Удаляем задачу
-       /* manager.deleteTask(taskId);
-        Task deletedTask = manager.getTaskById(taskId);
-        System.out.println(deletedTask); // должно напечататься "null"*/
+        //Update Epic
+        Epic epicToUpdate = manager.getEpicById(epicId1);
+        epicToUpdate.setDescription("Epic 1 - Updated");
+        manager.updateEpic(epicToUpdate);
 
-        // Создаем новую эпическую задачу
-        Epic epic1 = new Epic();
-        epic1.setName("Новая эпическая задача");
-        epic1.setDescription("Description of Epic 1");
-        int epicId = manager.createEpic(epic1);
+        //Update Subtask
+        Subtask subtaskToUpdate = manager.getSubtaskById(subtaskId1);
+        subtaskToUpdate.setName("Subtask 1 - Updated");
+        manager.updateSubtask(subtaskToUpdate);
 
-        // Создаем подзадачу, связанную с эпической задачей
-        Subtask subtask1 = new Subtask("Новая подзадача", "Description of Subtask 1", "NEW", epicId);
-        int subtaskId = manager.createSubtask(subtask1);
+        //Get Tasks
+        ArrayList<Task> tasks = manager.getTasks();
+        for (Task task : tasks) {
+            System.out.println("Task: " + task.getName());
+        }
 
-        // Получаем подзадачу по ID
-        Subtask retrievedSubtask = manager.getSubtaskById(subtaskId);
-        System.out.println(retrievedSubtask.getName()); // должно напечататься "Новая подзадача"
+        //Get Epics
+        ArrayList<Epic> epics = manager.getEpics();
+        for (Epic epic : epics) {
+            System.out.println("Epic: " + epic.getName());
+        }
 
-        // Обновляем подзадачу
-        retrievedSubtask.setName("Измененная подзадача");
-        manager.updateSubtask(retrievedSubtask);
-        retrievedSubtask.setStatus("NEW");
-        Subtask updatedSubtask = manager.getSubtaskById(subtaskId);
-        System.out.println(updatedSubtask.getName()); // должно напечататься "Измененная подзадача"
+        //Get Subtasks
+        ArrayList<Subtask> subtasks = manager.getSubtasks();
+        for (Subtask subtask : subtasks) {
+            System.out.println("Subtask: " + subtask.getName());
+        }
 
-        /*//Удаляем подзадачу
-        manager.deleteSubtaskById(subtaskId);
-        Subtask deletedSubtask = manager.getSubtaskById(subtaskId);
-        System.out.println(deletedSubtask); // должно напечататься "null"*/
+        //Get Epic Subtasks
+        ArrayList<Subtask> epicSubtasks = manager.getEpicSubtasks(epicId1);
+        for (Subtask subtask : epicSubtasks) {
+            System.out.println("Epic Subtask: " + subtask.getName());
+        }
 
-        // Удаляем все задачи и эпические задачи
-        /*manager.deleteAllSubtasks();
-        manager.deleteAllEpics();
-        manager.deleteAllTasks();*/
+        //Delete Task
+        /*manager.deleteTask(taskId1);
+
+        //Delete Epic
+        manager.deleteEpic(epicId1);
+
+        //Delete Subtasks
+        manager.deleteSubtasks();*/
     }
 }

@@ -1,21 +1,50 @@
-import java.util.ArrayList;
+import java.util.*;
 
-class Epic extends Task {
-    ArrayList<Integer> subtaskIds;
+public class Epic extends Task {
+    private ArrayList<Integer> subtaskIds = new ArrayList<>();
 
-    public ArrayList<Integer> getSubtaskIds() {
-        return subtaskIds;
+    public Epic(String name, String description, String status) {
+        super(name, description, status);
     }
 
-    public Epic() {
-        this.subtaskIds = new ArrayList<>();
-    }
     public void addSubtask(Subtask subtask) {
         subtaskIds.add(subtask.getId());
     }
 
-    public void removeAllSubtasks() {
-        subtaskIds.clear();
+    public ArrayList<Integer> getSubtaskIds() {
+        return subtaskIds;
+    }
+    public void removeSubtask(int subtaskId) {
+        for (int i = 0; i < subtaskIds.size(); i++) {
+            if (subtaskIds.get(i) == subtaskId) {
+                subtaskIds.remove(i);
+                return;
+            }
+        }
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        Epic epic = (Epic) obj;
+        return id == epic.id &&
+                Objects.equals(status, epic.status) &&
+                Objects.equals(name, epic.name) &&
+                Objects.equals(description, epic.description);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, status);
     }
 
+    @Override
+    public String toString() {
+        return "Epic{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
