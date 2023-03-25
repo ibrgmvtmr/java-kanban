@@ -55,12 +55,12 @@ public class Main {
         }
 
         //Удаление Task
-        /*manager.deleteTask(taskId1);
+        manager.deleteTask(taskId1);
 
         //Удаление Epic
         manager.deleteEpic(epicId1);
 
         //Удаление Subtasks
-        manager.deleteSubtasks();*/
+        manager.deleteSubtasks();
     }
 }
