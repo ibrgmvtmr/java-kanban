@@ -3,64 +3,64 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         Manager manager = new Manager();
-        //Create Task
+        //Создание Task
         Task task1 = new Task("Task 1", "Task 1 description", "NEW");
         int taskId1 = manager.createTask(task1);
 
-        //Create Epic
+        //Создание Epic
         Epic epic1 = new Epic("Epic 1", "Epic 1 description", "NEW");
         int epicId1 = manager.createEpic(epic1);
 
-        //Create Subtask
+        //Создание Subtask
         Subtask subtask1 = new Subtask("Subtask 1", "Subtask 1 description","NEW", epicId1);
         int subtaskId1 = manager.createSubtask(subtask1);
 
-        //Update Task
+        //Обновление Task
         Task taskToUpdate = manager.getTaskById(taskId1);
         taskToUpdate.setName("Task 1 - Updated");
         manager.updateTask(taskToUpdate);
 
-        //Update Epic
+        //Обновление Epic
         Epic epicToUpdate = manager.getEpicById(epicId1);
         epicToUpdate.setDescription("Epic 1 - Updated");
         manager.updateEpic(epicToUpdate);
 
-        //Update Subtask
+        //Обновление Subtask
         Subtask subtaskToUpdate = manager.getSubtaskById(subtaskId1);
         subtaskToUpdate.setName("Subtask 1 - Updated");
         manager.updateSubtask(subtaskToUpdate);
 
-        //Get Tasks
+        //Получение Tasks
         ArrayList<Task> tasks = manager.getTasks();
         for (Task task : tasks) {
             System.out.println("Task: " + task.getName());
         }
 
-        //Get Epics
+        //Получение Epics
         ArrayList<Epic> epics = manager.getEpics();
         for (Epic epic : epics) {
             System.out.println("Epic: " + epic.getName());
         }
 
-        //Get Subtasks
+        //Получение Subtasks
         ArrayList<Subtask> subtasks = manager.getSubtasks();
         for (Subtask subtask : subtasks) {
             System.out.println("Subtask: " + subtask.getName());
         }
 
-        //Get Epic Subtasks
+        //Получение Epic Subtasks
         ArrayList<Subtask> epicSubtasks = manager.getEpicSubtasks(epicId1);
         for (Subtask subtask : epicSubtasks) {
             System.out.println("Epic Subtask: " + subtask.getName());
         }
 
-        //Delete Task
+        //Удаление Task
         /*manager.deleteTask(taskId1);
 
-        //Delete Epic
+        //Удаление Epic
         manager.deleteEpic(epicId1);
 
-        //Delete Subtasks
+        //Удаление Subtasks
         manager.deleteSubtasks();*/
     }
 }
