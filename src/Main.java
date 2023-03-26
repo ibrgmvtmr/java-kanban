@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,25 +32,25 @@ public class Main {
         manager.updateSubtask(subtaskToUpdate);
 
         //Получение Tasks
-        ArrayList<Task> tasks = manager.getTasks();
+        List<Task> tasks = manager.getTasks();
         for (Task task : tasks) {
             System.out.println("Task: " + task.getName());
         }
 
         //Получение Epics
-        ArrayList<Epic> epics = manager.getEpics();
+        List<Epic> epics = manager.getEpics();
         for (Epic epic : epics) {
             System.out.println("Epic: " + epic.getName());
         }
 
         //Получение Subtasks
-        ArrayList<Subtask> subtasks = manager.getSubtasks();
+        List<Subtask> subtasks = manager.getSubtasks();
         for (Subtask subtask : subtasks) {
             System.out.println("Subtask: " + subtask.getName());
         }
 
         //Получение Epic Subtasks
-        ArrayList<Subtask> epicSubtasks = manager.getEpicSubtasks(epicId1);
+        List<Subtask> epicSubtasks = manager.getEpicSubtasks(epicId1);
         for (Subtask subtask : epicSubtasks) {
             System.out.println("Epic Subtask: " + subtask.getName());
         }

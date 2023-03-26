@@ -1,3 +1,4 @@
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,8 +35,8 @@ public class Manager {
         return tasks.get(id);
     }
 
-    public ArrayList<Task> getTasks() {
-        return new ArrayList<>();
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks.values());
     }
 
     public int createEpic(Epic epic){
@@ -61,14 +62,12 @@ public class Manager {
         epics.clear();
         subtasks.clear();
     }
-
-
-    public void deleteEpic(int id){
-        if(epics.containsKey(id)) {
+    public void deleteEpic(int id) {
+        if (epics.containsKey(id)) {
             Epic epic = epics.get(id);
-            ArrayList<Integer> subtasksToDelete = epic.getSubtaskIds();
-            for (Integer subtask : subtasksToDelete) {
-                subtasks.remove(subtask);
+            List<Integer> subtaskIds = epic.getSubtaskIds();
+            for (Integer subtaskId : subtaskIds) {
+                subtasks.remove(subtaskId);
             }
             epics.remove(id);
         }
@@ -78,12 +77,12 @@ public class Manager {
         return epics.get(id);
     }
 
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
     public int createSubtask(Subtask subtask) {
-        Epic epic = getEpicById(subtask.getEpicId());
+        Epic epic = epics.get(subtask.getEpicId());
         if (epic != null) {
             subtask.setId(generatedId++);
             subtask.setStatus("NEW");
@@ -130,16 +129,16 @@ public class Manager {
         return subtasks.get(id);
     }
 
-    public ArrayList<Subtask> getSubtasks() {
+    public List<Subtask> getSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
 
-    public ArrayList<Subtask> getEpicSubtasks(int epicId) {
+    public List<Subtask> getEpicSubtasks(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) {
             return new ArrayList<>();
         }
-        ArrayList<Integer> subtaskIds = epic.getSubtaskIds();
+        List<Integer> subtaskIds = epic.getSubtaskIds();
         ArrayList<Subtask> epicSubtasks = new ArrayList<>();
         for (Integer subtaskId : subtaskIds) {
             Subtask subtask = subtasks.get(subtaskId);
