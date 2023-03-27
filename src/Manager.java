@@ -87,8 +87,8 @@ public class Manager {
             subtask.setId(generatedId++);
             subtask.setStatus("NEW");
             epic.addSubtask(subtask.getId());
-            updateEpicStatus(epic.getId());
             subtasks.put(subtask.getId(), subtask);
+            updateEpicStatus(epic.getId());
             return subtask.getId();
         } else {
             System.out.println("Ошибк: Эпик с таким ID " + subtask.getEpicId() + " не существует ");
