@@ -1,10 +1,8 @@
-package Managers;
-
-import Managers.Managers;
-import Tasks.Epic;
-import Tasks.Status;
-import Tasks.Subtask;
-import Tasks.Task;
+package managers;
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
 
 import java.util.*;
 import java.util.ArrayList;
@@ -52,9 +50,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskById(int id) {
         Task task = tasks.get(id);
-        if(task != null) {
-            historyManager.add(task);
-        }
+        historyManager.add(task);
         return task;
     }
 
@@ -105,9 +101,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpicById(int id) {
         Epic epic = epics.get(id);
-        if(epic != null) {
-            historyManager.add(epic);
-        }
+        historyManager.add(epic);
         return epic;
     }
 
@@ -166,9 +160,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask getSubtaskById(int id) {
         Subtask subtask = subtasks.get(id);
-        if(subtask != null) {
-            historyManager.add(subtask);
-        }
+        historyManager.add(subtask);
         return subtask;
     }
 
@@ -198,14 +190,6 @@ public class InMemoryTaskManager implements TaskManager {
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
-
-    @Override
-    public void printHistory() {
-       for (Task history: historyManager.getHistory()) {
-           System.out.println(history);
-       }
-    }
-
 
     public void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);

@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.util.*;
 
@@ -48,9 +48,10 @@ public class Epic extends Task {
     @Override
     public String toString() {
         return "Epic{" +
-                "id=" + id +
+                "subtaskIds=" + subtaskIds +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", id=" + id +
                 ", status=" + status +
                 '}';
     }

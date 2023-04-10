@@ -1,8 +1,9 @@
-package Managers;
-import Tasks.Epic;
-import Tasks.Status;
-import Tasks.Subtask;
-import Tasks.Task;
+import managers.Managers;
+import managers.TaskManager;
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
 
 public class Main {
 
@@ -10,7 +11,6 @@ public class Main {
 
 
         TaskManager taskManager = Managers.getDefault();
-        //HistoryManager<Subtask> subtaskHistoryManager = Manegers.getDefaultHistory();
 
 
 
@@ -51,10 +51,6 @@ public class Main {
         System.out.println("Retrieved epic: " + retrievedEpic);
 
         // get the history of subtasks
-        HistoryManager historyManager = Managers.getDefaultHistory();
-        historyManager.getHistory();
-        taskManager.printHistory();
-
-        //Я не могу понять почему список историй выходит пустым, можете, пожалуйста, подсказать что мне улучшить в коде
+        taskManager.getHistory();
     }
 }

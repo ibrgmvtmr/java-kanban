@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ public class Subtask extends Task {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Subtask subtask = (Subtask) obj;
-        return epicId == subtask.epicId &&
+        return id == subtask.id &&
                 Objects.equals(status, subtask.status) &&
                 Objects.equals(name, subtask.name) &&
                 Objects.equals(description, subtask.description);
@@ -34,7 +34,7 @@ public class Subtask extends Task {
     @Override
     public String toString() {
         return "Subtask{" +
-                "id=" + epicId +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
