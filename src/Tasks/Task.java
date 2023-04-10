@@ -1,12 +1,14 @@
+package Tasks;
+
 import java.util.*;
 
 public class Task {
     protected String name;
     protected String description;
     protected int id;
-    protected String status;
+    protected Status status;
 
-    public Task(String name, String description, String status){
+    public Task(String name, String description, Status status){
         this.name = name;
         this.description = description;
         this.status = status;
@@ -25,7 +27,7 @@ public class Task {
         return id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
 
         return status;
     }
@@ -45,7 +47,7 @@ public class Task {
         this.id = id;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
 
         this.status = status;
     }
