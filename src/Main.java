@@ -36,14 +36,17 @@ public class Main {
         taskManager.getSubtaskById(subtaskId1);
         taskManager.getSubtaskById(subtaskId2);
         taskManager.getSubtaskById(subtaskId3);
+
         taskManager.getTaskById(taskId1);
         taskManager.getTaskById(taskId2);
 
+        System.out.println(taskManager.getHistory());
+
         taskManager.deleteTask(taskId1);
-        taskManager.getHistory();
+        System.out.println(taskManager.getHistory());
 
         taskManager.deleteEpic(epicId1);
-        taskManager.getHistory();
+        System.out.println(taskManager.getHistory());
 
     }
 }
