@@ -32,10 +32,10 @@ public class Main {
 
         taskManager.getTaskById(taskId1);
         taskManager.getTaskById(taskId2);
+        taskManager.getEpicById(epicId1);
         taskManager.getSubtaskById(subtaskId1);
         taskManager.getSubtaskById(subtaskId2);
         taskManager.getSubtaskById(subtaskId3);
-        taskManager.getEpicById(epicId1);
         taskManager.getTaskById(taskId1);
         taskManager.getTaskById(taskId2);
 
