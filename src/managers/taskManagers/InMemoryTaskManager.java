@@ -1,4 +1,6 @@
-package managers;
+package managers.taskManagers;
+import managers.Managers;
+import managers.historyManagers.HistoryManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -214,5 +216,12 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(Status.NEW);
             epics.put(epicId, epic);
         }
+    }
+
+    @Override
+    public int getIds(Subtask subtask) {
+        int id = subtask.getId();
+        System.out.println(id);
+        return id;
     }
 }

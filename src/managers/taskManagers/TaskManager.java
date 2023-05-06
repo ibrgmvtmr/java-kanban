@@ -1,4 +1,4 @@
-package managers;
+package managers.taskManagers;
 
 import tasks.Epic;
 import tasks.Subtask;
@@ -27,5 +27,5 @@ public interface TaskManager {
     List<Subtask> getSubtasks();
     List<Subtask> getEpicSubtasks(int epicId);
     List<Task> getHistory();
-
+    public int getIds(Subtask subtask);
 }

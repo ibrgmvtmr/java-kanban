@@ -1,5 +1,5 @@
 import managers.Managers;
-import managers.TaskManager;
+import managers.taskManagers.TaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -9,48 +9,41 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         TaskManager taskManager = Managers.getDefault();
 
+        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
+        int taskId1 = taskManager.createTask(task1);
+
+        Task task2 = new Task("Task 2", "Description 2", Status.IN_PROGRESS);
+        int taskId2 = taskManager.createTask(task2);
+
+        Epic epic1 = new Epic("Epic 1", "Epic description 1", Status.NEW);
+        int epicId1 = taskManager.createEpic(epic1);
+
+        Subtask subtask1 = new Subtask("Subtask 1", "Subtask description 1", Status.NEW, epicId1);
+        int subtaskId1 = taskManager.createSubtask(subtask1);
+
+        Subtask subtask2 = new Subtask("Subtask 2", "Subtask description 2", Status.NEW, epicId1);
+        int subtaskId2 = taskManager.createSubtask(subtask2);
+
+        Subtask subtask3 = new Subtask("Subtask 3", "Subtask description 3", Status.NEW, epicId1);
+        int subtaskId3 = taskManager.createSubtask(subtask3);
 
 
-        // create a task
-        Task task = new Task("Task 1", "Description 1", Status.NEW);
-        int taskId = taskManager.createTask(task);
-        System.out.println("Created task with ID " + taskId);
+        taskManager.getTaskById(taskId1);
+        taskManager.getTaskById(taskId2);
+        taskManager.getSubtaskById(subtaskId1);
+        taskManager.getSubtaskById(subtaskId2);
+        taskManager.getSubtaskById(subtaskId3);
+        taskManager.getEpicById(epicId1);
+        taskManager.getTaskById(taskId1);
+        taskManager.getTaskById(taskId2);
 
-        // update the task
-        task.setDescription("Updated description");
-        taskManager.updateTask(task);
-
-        // create an epic
-        Epic epic = new Epic("Epic 1", "Epic description", Status.NEW);
-        int epicId = taskManager.createEpic(epic);
-        System.out.println("Created epic with ID " + epicId);
-
-        // create a subtask
-        Subtask subtask = new Subtask("Subtask 1", "Subtask description", Status.NEW, epicId);
-        int subtaskId = taskManager.createSubtask(subtask);
-        System.out.println("Created subtask with ID " + subtaskId);
-
-        // update the subtask
-        subtask.setDescription("Updated subtask description");
-        taskManager.updateSubtask(subtask);
-
-        // get the task
-        Task retrievedTask = taskManager.getTaskById(taskId);
-        System.out.println("Retrieved task: " + retrievedTask);
-
-        // get the subtask
-        Subtask retrievedSubtask = taskManager.getSubtaskById(subtaskId);
-        System.out.println("Retrieved subtask: " + retrievedSubtask);
-
-
-        // get the epic
-        Epic retrievedEpic = taskManager.getEpicById(epicId);
-        System.out.println("Retrieved epic: " + retrievedEpic);
-
-        // get the history of subtasks
+        taskManager.deleteTask(taskId1);
         taskManager.getHistory();
+
+        taskManager.deleteEpic(epicId1);
+        taskManager.getHistory();
+
     }
 }
