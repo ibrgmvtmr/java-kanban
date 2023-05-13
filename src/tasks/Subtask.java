@@ -1,12 +1,21 @@
 package tasks;
 
+import tasks.enums.TaskStatus;
+import tasks.enums.TaskType;
+
 import java.util.Objects;
 
 public class Subtask extends Task {
-    private int epicId;
+    private final int epicId;
 
-    public Subtask(String name, String description, Status status, int epicId) {
-        super(name, description, status);
+    public Subtask(String name, String description, TaskStatus taskStatus, int epicId) {
+        super(name, description, taskStatus);
+        this.epicId = epicId;
+        this.taskType = TaskType.SUBTASK;
+    }
+
+    public Subtask(int id, String name, TaskStatus taskStatus, String description, int epicId) {
+        super(id, name, taskStatus, description);
         this.epicId = epicId;
     }
 
@@ -21,23 +30,23 @@ public class Subtask extends Task {
         if (this.getClass() != obj.getClass()) return false;
         Subtask subtask = (Subtask) obj;
         return id == subtask.id &&
-                Objects.equals(status, subtask.status) &&
+                Objects.equals(taskStatus, subtask.taskStatus) &&
                 Objects.equals(name, subtask.name) &&
                 Objects.equals(description, subtask.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(epicId, name, description, status);
+        return Objects.hash(epicId, name, description, taskStatus);
     }
 
     @Override
     public String toString() {
-        return "Subtask{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+        return id + ","
+                + taskType + ","
+                + name + ","
+                + taskStatus + ","
+                + description + ","
+                + epicId;
     }
 }
