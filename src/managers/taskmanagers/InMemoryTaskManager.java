@@ -1,12 +1,11 @@
-package managers.taskManagers;
+package managers.taskmanagers;
 import managers.Managers;
-import managers.historyManagers.HistoryManager;
+import managers.historymanagers.HistoryManager;
 import tasks.Epic;
 import tasks.enums.TaskStatus;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.ArrayList;
@@ -15,11 +14,11 @@ import java.util.HashMap;
 public class InMemoryTaskManager implements TaskManager {
     protected int generatedId= 1;
 
-    protected static HistoryManager historyManager;
+    protected HistoryManager historyManager;
 
-    protected static final HashMap<Integer, Task> tasks= new HashMap<>();
-    protected static final HashMap<Integer, Subtask>  subtasks= new HashMap<>();
-    protected static final HashMap<Integer, Epic> epics= new HashMap<>();
+    protected final HashMap<Integer, Task> tasks= new HashMap<>();
+    protected final HashMap<Integer, Subtask>  subtasks= new HashMap<>();
+    protected final HashMap<Integer, Epic> epics= new HashMap<>();
 
     public InMemoryTaskManager() {
         historyManager = Managers.getDefaultHistory();

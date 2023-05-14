@@ -1,10 +1,12 @@
 package managers;
 
-import managers.historyManagers.HistoryManager;
-import managers.historyManagers.InMemoryHistoryManager;
-import managers.taskManagers.FileBackedTasksManager;
-import managers.taskManagers.InMemoryTaskManager;
-import managers.taskManagers.TaskManager;
+import managers.historymanagers.HistoryManager;
+import managers.historymanagers.InMemoryHistoryManager;
+import managers.taskmanagers.FileBackedTasksManager;
+import managers.taskmanagers.InMemoryTaskManager;
+import managers.taskmanagers.TaskManager;
+
+import java.nio.file.Path;
 
 public class Managers {
     public static TaskManager getDefault() {
@@ -14,8 +16,7 @@ public class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
-
-    public static FileBackedTasksManager getDefaultFileBackedTasksManager() {
-        return new FileBackedTasksManager();
+    public static FileBackedTasksManager getDefaultFileBackedTasksManager(Path path) {
+        return new FileBackedTasksManager(path);
     }
 }
