@@ -4,28 +4,32 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.io.IOException;
 import java.util.*;
 
 public interface TaskManager {
-    int createTask(Task task) throws IOException;
+    Task createTask(Task task);
     void updateTask(Task task);
     void deleteTasks();
     void deleteTask(int id);
     Task getTaskById(int id);
     List<Task> getTasks();
-    int createEpic(Epic epic) throws IOException;
+    Epic createEpic(Epic epic);
     void updateEpic(Epic epic);
     void deleteEpics();
     void deleteEpic(int id);
     Epic getEpicById(int id);
     List<Epic> getEpics();
-    int createSubtask(Subtask subtask) throws IOException;
+    Subtask createSubtask(Subtask subtask);
     void updateSubtask(Subtask subtask);
     void deleteSubtasks();
-    void deleteSubtaskById(int id);
+    void deleteSubtask(int id);
     Subtask getSubtaskById(int id);
     List<Subtask> getSubtasks();
     List<Subtask> getEpicSubtasks(int epicId);
     List<Task> getHistory();
+    List<Task> getPrioritizedTasks();
+    void addToPrioritizedTasks(Task task);
+    void checkIntersections();
+    public void printPrioritizedTasks();
+    void updateEpicStatus(int epicId);
 }

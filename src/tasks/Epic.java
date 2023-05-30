@@ -3,19 +3,22 @@ package tasks;
 import tasks.enums.TaskStatus;
 import tasks.enums.TaskType;
 
+import java.time.Instant;
 import java.util.*;
 
 public class Epic extends Task {
     private final ArrayList<Integer> subtaskIds = new ArrayList<>();
+    private Instant endTime = Instant.ofEpochSecond(0);
 
-    public Epic(String name, String description, TaskStatus taskStatus) {
-        super(name, description, taskStatus);
-        this.taskType = TaskType.EPIC;
+    public Epic(String name, String description, TaskType taskType) {
+        super(name, description, Instant.ofEpochSecond(0), 0);
+        this.taskType = taskType;
 
     }
 
-    public Epic(int id, String name, TaskStatus taskStatus, String description){
-        super(id, name, taskStatus, description);
+    public Epic(int id, String name, TaskStatus taskStatus, String description, Instant startTime, long duration){
+        super(id, name, taskStatus, description, startTime, duration);
+        this.endTime = super.getEndTime();
 
     }
 
@@ -39,6 +42,18 @@ public class Epic extends Task {
             }
         }
     }
+
+    @Override
+    public Instant getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Instant endTime) {
+        this.endTime = endTime;
+    }
+
+
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -52,7 +67,7 @@ public class Epic extends Task {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, taskStatus);
+        return Objects.hash(super.hashCode(), subtaskIds);
     }
 
     @Override
@@ -61,6 +76,9 @@ public class Epic extends Task {
                 + taskType + ","
                 + name + ","
                 + taskStatus + ","
-                + description;
+                + description + ","
+                + getStartTime() + ","
+                + duration + ","
+                + getEndTime();
     }
 }

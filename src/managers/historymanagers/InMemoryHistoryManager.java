@@ -40,7 +40,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         return tasks.getTasks();
     }
 
-    public class CustomLinkedList {
+    public static class CustomLinkedList {
 
         private Node<Task> head;
         private Node<Task> tail;
