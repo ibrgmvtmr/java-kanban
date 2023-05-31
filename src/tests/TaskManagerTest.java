@@ -80,7 +80,7 @@ public abstract class TaskManagerTest  <T extends TaskManager> {
 
         TaskStatus updatedEpicState = manager.getEpicById(newEpic.getId()).getStatus();
 
-        assertEquals(TaskStatus.IN_PROGRESS, updatedEpicState);
+        assertEquals(TaskStatus.DONE, updatedEpicState);
 
     }
 
@@ -204,11 +204,13 @@ public abstract class TaskManagerTest  <T extends TaskManager> {
     public void calculateStartAndEndTimeOfEpicTest() {
         Epic newEpic = manager.createEpic(newEpic());
         Subtask newSubtask1 = manager.createSubtask(newSubtask(newEpic));
-        Subtask newSubtask2 = manager.createSubtask(newSubtask(newEpic));
+         Subtask newSubtask2 = manager.createSubtask(new Subtask(
+                "Task1", "Task1",
+                Instant.ofEpochMilli(502233423L), 50, newEpic.getId()));
+
 
         assertEquals(newSubtask1.getStartTime(), newEpic.getStartTime());
-        assertEquals(newSubtask2.getEndTime(), newEpic.getStartTime());
-
+        assertEquals(newSubtask2.getEndTime(), newEpic.getEndTime());
     }
 
     @Test
@@ -266,7 +268,7 @@ public abstract class TaskManagerTest  <T extends TaskManager> {
                     Instant.ofEpochMilli(42), 42));
             manager.createTask(new Task(
                     "Task2", "Task2",
-                    Instant.ofEpochMilli(43), 43));
+                    Instant.ofEpochMilli(42), 42));
         });
     }
 
@@ -279,7 +281,7 @@ public abstract class TaskManagerTest  <T extends TaskManager> {
         Subtask newSubtask = manager.createSubtask(new Subtask
                 ("Subtask1", "Subtask1", Instant.ofEpochMilli(67), 67, newEpic.getId()));
 
-        assertEquals(List.of (newEpic, newTask, newSubtask), manager.getPrioritizedTasks());
+        assertEquals(List.of (newTask, newSubtask), manager.getPrioritizedTasks());
     }
     @Test
     public void historyFromStringTest() {

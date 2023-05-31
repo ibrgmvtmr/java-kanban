@@ -29,7 +29,7 @@ public interface TaskManager {
     List<Task> getHistory();
     List<Task> getPrioritizedTasks();
     void addToPrioritizedTasks(Task task);
-    void checkIntersections();
+    void checkIntersections(Task task);
     public void printPrioritizedTasks();
     void updateEpicStatus(int epicId);
 }

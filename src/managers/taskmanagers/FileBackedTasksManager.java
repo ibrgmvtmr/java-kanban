@@ -7,17 +7,17 @@ import tasks.Task;
 import tasks.enums.TaskStatus;
 import tasks.enums.TaskType;
 
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static tasks.enums.TaskType.EPIC;
 import static tasks.enums.TaskType.SUBTASK;
-
 
 public class FileBackedTasksManager extends InMemoryTaskManager{
 
@@ -121,8 +121,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         return subtask;
     }
 
-
-
     protected void save() {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toFile()))) {
@@ -140,18 +138,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     public static FileBackedTasksManager loadFromFile(Path filePath) {
         FileBackedTasksManager fileBackedTasksManager = Managers.getDefaultFileBackedTasksManager(filePath);
 
-        List<Integer> tasksId = new ArrayList<>();
-
         try {
 
             String fileName = Files.readString(filePath);
 
             String[] lines = fileName.split("\n");
-            String[] a = lines[lines.length-1].split(",");
 
-            for (String str : a) {
-                tasksId.add(Integer.parseInt(str));
-            }
+            List<Integer> history = historyFromString(lines[lines.length-1]);
 
             for (int i = 1; i < lines.length-2; i++) {
 
@@ -164,7 +157,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
 
                 if (TaskType.valueOf(type[1]).equals(TaskType.TASK)) {
                     fileBackedTasksManager.tasks.put(task.getId(), task);
-                    if (tasksId.contains(task.getId())) {
+                    if (history.contains(task.getId())) {
                         fileBackedTasksManager.historyManager.add(task);
                     }
                 }
@@ -174,7 +167,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
                     task.setTaskType(EPIC);
                     fileBackedTasksManager.epics.put(epic.getId(),epic);
 
-                    if(tasksId.contains(epic.getId())){
+                    if(history.contains(epic.getId())){
                         fileBackedTasksManager.historyManager.add(epic);
                     }
                 }
@@ -184,10 +177,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
                     task.setTaskType(SUBTASK);
                     fileBackedTasksManager.subtasks.put(subtask.getId(), subtask);
 
-                    if(tasksId.contains(subtask.getId())){
+                    if(history.contains(subtask.getId())){
                         fileBackedTasksManager.historyManager.add(subtask);
                     }
                 }
+                fileBackedTasksManager.historyManager.getHistory().sort(Comparator.comparing(Task::getStartTime).thenComparing(Task::getId));
             }
 
         } catch (IOException e) {

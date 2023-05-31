@@ -45,6 +45,10 @@ public class Epic extends Task {
 
     @Override
     public Instant getEndTime() {
+        Instant endTime = super.getEndTime();
+        if (endTime.isBefore(this.endTime)) {
+            endTime = this.endTime;
+        }
         return endTime;
     }
 
@@ -61,9 +65,11 @@ public class Epic extends Task {
         if (this.getClass() != obj.getClass()) return false;
         Epic epic = (Epic) obj;
         return id == epic.id &&
+                duration == epic.duration &&
                 Objects.equals(taskStatus, epic.taskStatus) &&
                 Objects.equals(name, epic.name) &&
-                Objects.equals(description, epic.description);
+                Objects.equals(description, epic.description) &&
+                Objects.equals(startTime, epic.startTime);
     }
     @Override
     public int hashCode() {

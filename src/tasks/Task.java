@@ -113,14 +113,16 @@ public class Task {
         if (this.getClass() != obj.getClass()) return false;
         Task task = (Task) obj;
         return id == task.id &&
+                duration == task.duration &&
                 Objects.equals(taskStatus, task.taskStatus) &&
                 Objects.equals(name, task.name) &&
-                Objects.equals(description, task.description);
+                Objects.equals(description, task.description) &&
+                Objects.equals(startTime, task.startTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, id, taskStatus);
+        return Objects.hash(name, description, id, taskStatus, startTime, duration);
     }
 
     @Override
