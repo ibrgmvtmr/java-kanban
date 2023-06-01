@@ -15,7 +15,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
+public class
+FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
     private final List<Task> emptyList = new ArrayList<>();
     private Path filePath = Path.of("src/results.csv");
@@ -33,15 +34,15 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
         Epic newEpic = manager.createEpic(newEpic());
         Subtask newSubtask = manager.createSubtask(newSubtask(newEpic));
 
-        manager.getTaskById(newTask.getId());
         manager.getEpicById(newEpic.getId());
+        manager.getTaskById(newTask.getId());
         manager.getSubtaskById(newSubtask.getId());
         manager = FileBackedTasksManager.loadFromFile(filePath);
 
         assertEquals(List.of(newTask), manager.getTasks());
-        assertEquals(List.of(newEpic), manager.getEpics());
         assertEquals(List.of(newSubtask), manager.getSubtasks());
-        assertEquals(List.of(newTask, newEpic, newSubtask), manager.getHistory());
+        assertEquals(List.of(newEpic), manager.getEpics());
+        assertEquals(List.of(newTask,newEpic, newSubtask), manager.getHistory());
     }
 
     @Test

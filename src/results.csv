@@ -1,4 +1,4 @@
-id,type,name,status,description,startTime,duration,epic
+id,type,name,status,description,startTime,duration,endTime,epic
 1,TASK,Task1,NEW,Description of Task1,1970-01-01T00:00:00Z,0,1970-01-01T00:00:00Z
 2,EPIC,Epic1,NEW,Description of Epic1,1970-01-01T00:00:00Z,0,1970-01-01T00:00:00Z
 3,SUBTASK,Subtask1,NEW,Description of Subtask1,1970-01-01T00:00:00Z,0,1970-01-01T00:00:00Z,2

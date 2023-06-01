@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -125,7 +125,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toFile()))) {
 
-            String values = "id,type,name,status,description,startTime,duration,epic" + "\n" + toString(this) + "\n" + historyToString(historyManager);
+            String values = "id,type,name,status,description,startTime,duration,endTime,epic" + "\n" + toString(this) + "\n" + historyToString(historyManager);
             bw.write(values);
 
         } catch (IOException e) {
@@ -176,12 +176,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
                     Subtask subtask = (Subtask) task;
                     task.setTaskType(SUBTASK);
                     fileBackedTasksManager.subtasks.put(subtask.getId(), subtask);
+                    fileBackedTasksManager.calculateEpicEndTime(subtask.getEpicId());
 
                     if(history.contains(subtask.getId())){
                         fileBackedTasksManager.historyManager.add(subtask);
                     }
                 }
-                fileBackedTasksManager.historyManager.getHistory().sort(Comparator.comparing(Task::getStartTime).thenComparing(Task::getId));
             }
 
         } catch (IOException e) {
@@ -210,7 +210,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
     public static Task fromString(String value){
-        int epicId = 0;
+
         String[] split = value.split(",");
         int id = Integer.parseInt(split[0]);
         String type = split[1];
@@ -220,9 +220,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         Instant startTime = Instant.parse(split[5]);
         long duration = Long.parseLong(split[6]);
 
+        int epicId = 0;
+        Instant endTime = null;
 
         if(TaskType.valueOf(type).equals(TaskType.SUBTASK)) {
             epicId = Integer.parseInt(split[8]);
+        }
+
+        if (split.length > 7 && !split[7].isEmpty()) {
+            endTime = Instant.parse(split[7]);
         }
 
         if(TaskType.valueOf(type).equals(TaskType.TASK)) {
@@ -230,7 +236,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         }
 
         if(TaskType.valueOf(type).equals(EPIC)) {
-            return new Epic(id, name, status, description, startTime, duration);
+            Epic epic = new Epic(id, name, status, description, startTime, duration);
+            epic.setEndTime(endTime);
+            return epic;
         }
 
         if(TaskType.valueOf(type).equals((TaskType.SUBTASK))) {
@@ -254,8 +262,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         List<Integer> history = new ArrayList<>();
 
         for (String line : value.split(",")) {
-            history.add(Integer.parseInt(line));
+            history.add(Integer.parseInt(line.trim()));
         }
+
+        Collections.sort(history);
+
         return history;
     }
 }

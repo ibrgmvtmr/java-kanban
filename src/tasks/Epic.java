@@ -18,8 +18,6 @@ public class Epic extends Task {
 
     public Epic(int id, String name, TaskStatus taskStatus, String description, Instant startTime, long duration){
         super(id, name, taskStatus, description, startTime, duration);
-        this.endTime = super.getEndTime();
-
     }
 
     public void addSubtask(int id) {
@@ -45,10 +43,6 @@ public class Epic extends Task {
 
     @Override
     public Instant getEndTime() {
-        Instant endTime = super.getEndTime();
-        if (endTime.isBefore(this.endTime)) {
-            endTime = this.endTime;
-        }
         return endTime;
     }
 
@@ -57,20 +51,15 @@ public class Epic extends Task {
     }
 
 
-
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (this.getClass() != obj.getClass()) return false;
-        Epic epic = (Epic) obj;
-        return id == epic.id &&
-                duration == epic.duration &&
-                Objects.equals(taskStatus, epic.taskStatus) &&
-                Objects.equals(name, epic.name) &&
-                Objects.equals(description, epic.description) &&
-                Objects.equals(startTime, epic.startTime);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Epic epic = (Epic) o;
+        return subtaskIds.equals(epic.subtaskIds) && endTime.equals(epic.endTime);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), subtaskIds);
