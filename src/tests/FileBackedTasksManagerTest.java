@@ -80,12 +80,4 @@ FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
         assertThrows(RuntimeException.class, () -> FileBackedTasksManager.loadFromFile(filePath));
     }
 
-//    @Test
-//    public void throwManagerSaveExceptionTest1() {
-//        Epic newEpic = manager.createEpic(newEpic());
-//        Subtask newSubtask = manager.createSubtask(newSubtask(newEpic));
-//
-//        assertEquals(1, newEpic.getSubtaskIds());
-//    }
-
 }
