@@ -39,10 +39,11 @@ FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
         manager.getSubtaskById(newSubtask.getId());
         manager = FileBackedTasksManager.loadFromFile(filePath);
 
+        manager.getEpics();
         assertEquals(List.of(newTask), manager.getTasks());
         assertEquals(List.of(newSubtask), manager.getSubtasks());
         assertEquals(List.of(newEpic), manager.getEpics());
-        assertEquals(List.of(newTask,newEpic, newSubtask), manager.getHistory());
+        assertEquals(List.of(newTask, newSubtask, newEpic), manager.getHistory());
     }
 
     @Test
@@ -78,4 +79,13 @@ FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
         filePath = Path.of("testfile .exe");
         assertThrows(RuntimeException.class, () -> FileBackedTasksManager.loadFromFile(filePath));
     }
+
+//    @Test
+//    public void throwManagerSaveExceptionTest1() {
+//        Epic newEpic = manager.createEpic(newEpic());
+//        Subtask newSubtask = manager.createSubtask(newSubtask(newEpic));
+//
+//        assertEquals(1, newEpic.getSubtaskIds());
+//    }
+
 }

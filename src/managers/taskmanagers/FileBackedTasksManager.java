@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static tasks.enums.TaskType.EPIC;
@@ -181,7 +180,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
                     if(history.contains(subtask.getId())){
                         fileBackedTasksManager.historyManager.add(subtask);
                     }
+
+                    Epic epic = fileBackedTasksManager.getEpicById(subtask.getEpicId());
+                    epic.addSubtask(subtask.getId());
+
+                    fileBackedTasksManager.calculateEpicEndTime(epic.getId());
                 }
+
             }
 
         } catch (IOException e) {
