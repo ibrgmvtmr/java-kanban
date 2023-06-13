@@ -20,10 +20,13 @@ import static tasks.enums.TaskType.SUBTASK;
 
 public class FileBackedTasksManager extends InMemoryTaskManager{
 
-    private final Path filePath;
+    private Path filePath;
 
     public FileBackedTasksManager(Path filePath) {
         this.filePath = filePath;
+    }
+
+    public FileBackedTasksManager() {
     }
 
     @Override
@@ -183,7 +186,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
 
                     Epic epic = fileBackedTasksManager.getEpicById(subtask.getEpicId());
                     epic.addSubtask(subtask.getId());
+                }
 
+                for (Epic epic : fileBackedTasksManager.epics.values()) {
                     fileBackedTasksManager.calculateEpicEndTime(epic.getId());
                 }
 

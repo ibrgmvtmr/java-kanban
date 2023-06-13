@@ -7,8 +7,6 @@ import tasks.enums.TaskStatus;
 import tasks.Subtask;
 import tasks.Task;
 
-
-import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ public class InMemoryTaskManager implements TaskManager {
         epics = new HashMap<>();
         subtasks = new HashMap<>();
     }
+
 
     @Override
     public Task createTask(Task task) {
@@ -266,7 +265,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected void calculateEpicEndTime(int id) {
         Epic epic = epics.get(id);
 
-        if ((!epic.getSubtaskIds().isEmpty()) && subtasks.get(epic.getSubtaskIds().get(0)) != null) {
+        if ((!epic.getSubtaskIds().isEmpty())) {
             Subtask firstSubtask = subtasks.get(epic.getSubtaskIds().get(0));
             Instant startTime = firstSubtask.getStartTime();
             Instant endTime = firstSubtask.getEndTime();
