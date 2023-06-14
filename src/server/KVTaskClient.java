@@ -43,7 +43,7 @@ public class KVTaskClient {
         try {
             HttpResponse.BodyHandler<String> handler = HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8);
             HttpResponse<String> response = httpClient.send(request, handler);
-            if (response.statusCode() != 201) {
+            if (response.statusCode() != 200) {
                 System.out.println("Ошибка сохранения! Код ответа: " + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {

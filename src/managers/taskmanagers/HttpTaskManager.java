@@ -23,10 +23,10 @@ public class HttpTaskManager extends FileBackedTasksManager{
     @Override
     public void save() {
         try {
-            kvTaskClient.put("task", gson.toJson(super.getTasks()));
-            kvTaskClient.put("epic", gson.toJson(super.getEpics()));
-            kvTaskClient.put("subtask", gson.toJson(super.getSubtasks()));
-            kvTaskClient.put("history", gson.toJson(super.getHistory()));
+            kvTaskClient.put("task", gson.toJson(getTasks()));
+            kvTaskClient.put("epic", gson.toJson(getEpics()));
+            kvTaskClient.put("subtask", gson.toJson(getSubtasks()));
+            kvTaskClient.put("history", gson.toJson(getHistory()));
         } catch (IOException | InterruptedException e ) {
                 throw new RuntimeException(e);
         }
@@ -41,7 +41,10 @@ public class HttpTaskManager extends FileBackedTasksManager{
             for (JsonElement jsonTask : loadedArray) {
                 Task loadedTask = gson.fromJson(jsonTask, Task.class);
                 int id = loadedTask.getId();
-                super.tasks.put(id, loadedTask);
+                if (loadedTask.getId() > generatedId) {
+                    generatedId = loadedTask.getId();
+                }
+                tasks.put(id, loadedTask);
             }
             loadedArray = kvTaskClient.load("epic");
             if (loadedArray == null) {
@@ -50,7 +53,10 @@ public class HttpTaskManager extends FileBackedTasksManager{
             for (JsonElement jsonTask : loadedArray) {
                 Epic loadedEpic = gson.fromJson(jsonTask, Epic.class);
                 int id = loadedEpic.getId();
-                super.epics.put(id, loadedEpic);
+                if (loadedEpic.getId() > generatedId) {
+                    generatedId = loadedEpic.getId();
+                }
+                epics.put(id, loadedEpic);
             }
             loadedArray = kvTaskClient.load("subtask");
             if (loadedArray == null) {
@@ -59,7 +65,10 @@ public class HttpTaskManager extends FileBackedTasksManager{
             for (JsonElement jsonTask : loadedArray) {
                 Subtask loadedSubTask = gson.fromJson(jsonTask, Subtask.class);
                 int id = loadedSubTask.getId();
-                super.subtasks.put(id, loadedSubTask);
+                if (loadedSubTask.getId() > generatedId) {
+                    generatedId = loadedSubTask.getId();
+                }
+                subtasks.put(id, loadedSubTask);
             }
             loadedArray = kvTaskClient.load("history");
             if (loadedArray == null) {

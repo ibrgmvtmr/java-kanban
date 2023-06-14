@@ -3,6 +3,7 @@ package server;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,11 +30,11 @@ public class KVServer {
 
     private void load(HttpExchange h) throws IOException {
 
-        System.out.println("\n/save");
+        System.out.println("\n/load");
 
         try{
             if(!hasAuth(h)){
-                System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+                System.out.println("Запрос не авторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
                 h.sendResponseHeaders(403, 0);
                 return;
             }
@@ -53,6 +54,10 @@ public class KVServer {
                     return;
                 }
                 System.out.println("Значение для ключа " + key + " успешно получено!");
+                h.sendResponseHeaders(200, value.length());
+                OutputStream outputStream = h.getResponseBody();
+                outputStream.write(value.getBytes());
+                outputStream.close();
                 h.sendResponseHeaders(200, 0);
             } else {
                 System.out.println("/load ждёт GET-запрос, а получил: " + h.getRequestMethod());
@@ -67,7 +72,7 @@ public class KVServer {
         try {
             System.out.println("\n/save");
             if (!hasAuth(h)) {
-                System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+                System.out.println("Запрос не авторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
                 h.sendResponseHeaders(403, 0);
                 return;
             }

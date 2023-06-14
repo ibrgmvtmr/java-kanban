@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import managers.taskmanagers.HttpTaskManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import server.HttpTaskServer;
 import server.KVServer;
 import tasks.Epic;
@@ -26,30 +23,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpTaskServerTest {
 
-    private static final KVServer kvServer;
-    private static HttpTaskServer httpServer;
-
-    private static Gson gson;
-
-    static  {
-        try {
-            kvServer = new KVServer();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @BeforeAll
-    static void setUp() throws IOException, InterruptedException {
+    protected   KVServer kvServer;
+    protected   HttpTaskServer httpServer;
+    protected   Gson gson;
+    @BeforeEach
+    void setUp() throws IOException, InterruptedException {
+        kvServer = new KVServer();
         kvServer.start();
         httpServer = new HttpTaskServer();
         httpServer.start();
         gson = new Gson();
     }
-
-    @AfterAll
-    static void shutDown() {
+    @AfterEach
+    void shutDown() {
         httpServer.stop();
         kvServer.stop();
     }

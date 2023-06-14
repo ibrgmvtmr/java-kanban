@@ -12,7 +12,7 @@ import java.nio.file.Path;
 
 public class Managers {
 
-    static public HttpTaskManager getDefault(String URL) throws IOException, InterruptedException {
+    public static HttpTaskManager getDefault(String URL) throws IOException, InterruptedException {
         return new HttpTaskManager(URL);
     }
 
