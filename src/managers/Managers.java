@@ -16,11 +16,11 @@ public class Managers {
         return new HttpTaskManager(URL);
     }
 
-    static public TaskManager getInMemoryTaskManger() {
+    public static TaskManager getInMemoryTaskManger() {
         return new InMemoryTaskManager();
     }
 
-    static public HistoryManager getDefaultHistory() {
+    public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
     public static FileBackedTasksManager getDefaultFileBackedTasksManager(Path path) {

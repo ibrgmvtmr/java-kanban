@@ -58,7 +58,6 @@ public class KVServer {
                 OutputStream outputStream = h.getResponseBody();
                 outputStream.write(value.getBytes());
                 outputStream.close();
-                h.sendResponseHeaders(200, 0);
             } else {
                 System.out.println("/load ждёт GET-запрос, а получил: " + h.getRequestMethod());
                 h.sendResponseHeaders(405, 0);

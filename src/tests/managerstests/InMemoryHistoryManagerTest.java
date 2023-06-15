@@ -1,4 +1,4 @@
-package tests;
+package tests.managerstests;
 
 import managers.Managers;
 import managers.historymanagers.HistoryManager;

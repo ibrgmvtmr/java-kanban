@@ -10,6 +10,7 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 import tasks.enums.TaskType;
+import tests.managerstests.InMemoryTasksManagerTest;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HttpTaskManagerTest {
+public class HttpTaskManagerTest extends InMemoryTasksManagerTest {
     private KVServer server;
     private TaskManager manager;
 

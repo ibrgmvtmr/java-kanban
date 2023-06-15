@@ -1,4 +1,4 @@
-package tests;
+package tests.managerstests;
 
 import managers.Managers;
 import managers.taskmanagers.FileBackedTasksManager;
@@ -15,8 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class
-FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
+public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
     private final List<Task> emptyList = new ArrayList<>();
     private Path filePath = Path.of("src/results.csv");

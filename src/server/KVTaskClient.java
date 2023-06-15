@@ -74,5 +74,4 @@ public class KVTaskClient {
             throw new RuntimeException("Во время запроса произошла ошибка");
         }
     }
-
 }

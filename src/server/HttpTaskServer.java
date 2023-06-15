@@ -14,8 +14,7 @@ public class HttpTaskServer{
     private static final int PORT = 8080;
 
     public HttpTaskServer() throws IOException, InterruptedException {
-        TaskManager taskManager = Managers.getDefault("http://localhost:" + KVServer.PORT);
-
+        TaskManager taskManager = Managers.getInMemoryTaskManger();
         this.httpServer = HttpServer.create();
         httpServer.bind(new InetSocketAddress(PORT), 0);
         httpServer.createContext("/tasks/task/", new TaskHandle(taskManager));

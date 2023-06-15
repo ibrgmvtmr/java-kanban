@@ -1,4 +1,4 @@
-package tests;
+package tests.managerstests;
 
 import exceptions.IntersectionException;
 import managers.historymanagers.HistoryManager;
